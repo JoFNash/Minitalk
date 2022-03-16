@@ -42,6 +42,13 @@ void	myaction(int signum, siginfo_t *siginfo, void *code)
 	}
 }
 
+void	print_pid(void)
+{
+	ft_putstr("My pid: ");
+	ft_putnbr_fd(getpid(), 1);
+	ft_putchar('\n');
+}
+
 void	set_values(struct sigaction *act, sigset_t non_mask)
 {
 	act->sa_handler = 0;
@@ -57,13 +64,12 @@ int	main(void)
 
 	if (sigemptyset(&non_mask) == -1 || \
 		sigaddset(&non_mask, SIGINT) == -1)
-		printf("\n| error sigaddset() |\n");
+		printf("Error: sigaddset\n");
 	set_values(&act, non_mask);
 	if (sigaction(SIGUSR1, &act, NULL) == -1 || \
 		sigaction(SIGUSR2, &act, NULL) == -1)
-		printf("\n| error sigaction() |\n");
-	ft_putnbr_fd(getpid(), 1);
-	printf("%d\n", getpid());
+		printf("Error: sigaction\n");
+	print_pid();
 	while (1)
 	{
 		pause();

@@ -25,14 +25,19 @@ void	client(pid_t ppid, char *message)
 			}
 			else
 			{
-				kill(ppid, SIGUSR1);
+				kill(ppid, SIGUSR2);
 			}
 			i /= 2;
+			usleep(100);
 		}
 		message++;
 	}
 }
 
+// 7 6 5 4 3 2 1 0
+// 1 0 0 1 1 0 1 0
+// &
+// 1 0 0 0 0 0 0 0
 int	main(int argc, char *argv[])
 {
 	pid_t	ppid;
@@ -41,7 +46,7 @@ int	main(int argc, char *argv[])
 	signal(SIGUSR1, get);
 	if (argc != 3)
 	{
-		printf("Error! Enter 1) ppid 2) message");
+		printf("Enter please: .\\client <pid> <message>");
 		exit(EXIT_FAILURE);
 	}
 	ppid = (pid_t)ft_atoi(argv[1]);
@@ -51,12 +56,3 @@ int	main(int argc, char *argv[])
 		pause();
 	return (0);
 }
-
-
-// int main(int argc, char **argv)
-// {
-// 	int k;
-// 	k = atoi(argv[1]);
-// 	printf("%d\n", k);
-// 	kill(k, SIGUSR1);
-// }
