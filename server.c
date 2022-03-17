@@ -6,7 +6,7 @@
 /*   By: hsybassi <hsybassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:37:34 by hsybassi          #+#    #+#             */
-/*   Updated: 2022/03/17 16:47:47 by hsybassi         ###   ########.fr       */
+/*   Updated: 2022/03/17 18:09:06 by hsybassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,12 @@ int	main(void)
 	struct sigaction	act;
 	sigset_t			non_mask;
 
-	if (sigemptyset(&non_mask) == -1 || \
-		sigaddset(&non_mask, SIGINT) == -1)
-		printf("Error: sigaddset\n");
+	if (sigemptyset(&non_mask) == -1)
+		ft_putstr_fd("Error: sigaddset()\n", 1);
 	set_values(&act, non_mask);
 	if (sigaction(SIGUSR1, &act, NULL) == -1 || \
 		sigaction(SIGUSR2, &act, NULL) == -1)
-		printf("Error: sigaction\n");
+		ft_putstr_fd("Error: sigaction()\n", 1);
 	print_pid();
 	while (1)
 	{

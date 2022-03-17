@@ -6,7 +6,7 @@
 /*   By: hsybassi <hsybassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:37:32 by hsybassi          #+#    #+#             */
-/*   Updated: 2022/03/17 16:55:22 by hsybassi         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:24:41 by hsybassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	main(int argc, char *argv[])
 	signal(SIGUSR1, get);
 	if (argc != 3)
 	{
-		printf("Enter please: ./client <pid> <message>");
+		ft_putstr_fd("Enter please: ./client <pid> <message>", 1);
 		exit(EXIT_FAILURE);
 	}
 	ppid = (pid_t)ft_atoi(argv[1]);
