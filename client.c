@@ -1,43 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsybassi <hsybassi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/17 16:37:32 by hsybassi          #+#    #+#             */
+/*   Updated: 2022/03/17 16:47:21 by hsybassi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/minitalk.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <signal.h>
-#include "libft/libft.h"
 
 void	get(int myint)
 {
 	(void)myint;
 	ft_putstr_fd("Message was got\n", 1);
+	exit(0);
 }
 
-void	client(pid_t ppid, char *message)
+void	send_char(char c, int ppid)
 {
 	int	i;
 
 	i = 128;
-	while (*message)
+	while (i != 0)
 	{
-		while (i != 2)
+		if (i & c)
 		{
-			if (i & *message)
+			if (kill(ppid, SIGUSR1))
 			{
-				kill(ppid, SIGUSR1);
+				printf("ERROR, sigusr1\n");
+				exit(EXIT_FAILURE);
 			}
-			else
-			{
-				kill(ppid, SIGUSR2);
-			}
-			i /= 2;
-			usleep(100);
 		}
-		message++;
+		else
+		{
+			if (kill(ppid, SIGUSR2))
+			{
+				printf("ERROR sigusr2\n");
+				exit(EXIT_FAILURE);
+			}
+		}
+		i /= 2;
+		usleep(500);
 	}
 }
 
-// 7 6 5 4 3 2 1 0
-// 1 0 0 1 1 0 1 0
-// &
-// 1 0 0 0 0 0 0 0
+void	send(pid_t ppid, char *message)
+{
+	while (*message)
+	{
+		send_char(*message, ppid);
+		message++;
+	}
+	send_char(ppid, 0);
+}
+
 int	main(int argc, char *argv[])
 {
 	pid_t	ppid;
@@ -46,12 +65,12 @@ int	main(int argc, char *argv[])
 	signal(SIGUSR1, get);
 	if (argc != 3)
 	{
-		printf("Enter please: .\\client <pid> <message>");
+		printf("Enter please: ./client <pid> <message>");
 		exit(EXIT_FAILURE);
 	}
 	ppid = (pid_t)ft_atoi(argv[1]);
 	message = argv[2];
-	client(ppid, message);
+	send(ppid, message);
 	while (1)
 		pause();
 	return (0);
