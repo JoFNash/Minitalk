@@ -6,7 +6,7 @@
 /*   By: hsybassi <hsybassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:37:32 by hsybassi          #+#    #+#             */
-/*   Updated: 2022/03/17 16:47:21 by hsybassi         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:55:22 by hsybassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	send_char(char c, int ppid)
 		{
 			if (kill(ppid, SIGUSR1))
 			{
-				printf("ERROR, sigusr1\n");
+				ft_putstr_fd("Error: SIGUSR1\n", 1);
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -38,7 +38,7 @@ void	send_char(char c, int ppid)
 		{
 			if (kill(ppid, SIGUSR2))
 			{
-				printf("ERROR sigusr2\n");
+				ft_putstr_fd("Error: SIGUSR2\n", 1);
 				exit(EXIT_FAILURE);
 			}
 		}

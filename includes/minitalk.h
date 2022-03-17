@@ -6,7 +6,7 @@
 /*   By: hsybassi <hsybassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 16:37:41 by hsybassi          #+#    #+#             */
-/*   Updated: 2022/03/17 16:48:37 by hsybassi         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:51:46 by hsybassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,5 @@
 # include <sys/types.h>
 # include <unistd.h>
 # include "../libft/libft.h"
-# include <stdio.h>
 
 #endif
